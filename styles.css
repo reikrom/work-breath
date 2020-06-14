@@ -1,0 +1,130 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	/* background: linear-gradient(45deg, #3a90d9 0%, #53a9f3 100%); */
+
+	background-repeat: no-repeat;
+	height: 100%;
+	margin: 0;
+	color: #f6f6f6;
+	font-family: monospace;
+	transition: background 4s;
+}
+
+.bgA {
+	background: #2780ce;
+}
+
+.bgH {
+	background: #8c1616;
+}
+
+.container {
+	max-width: 600px;
+	height: 100vh;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	overflow: hidden;
+	@media() {
+	}
+}
+
+h1 {
+	margin: 0;
+	font-size: 4rem;
+	opacity: 0.8;
+}
+
+.timer {
+	text-align: center;
+}
+
+.completion {
+	margin-bottom: 1em;
+	text-align: center;
+	opacity: 0.3;
+}
+
+.controls {
+	display: flex;
+	justify-content: center;
+}
+
+button {
+	height: 50px;
+	min-width: 150px;
+	font-size: 18px;
+	font-weight: light;
+	padding: 12px;
+	background: transparent;
+	color: #f6f6f6;
+	text-transform: uppercase;
+	border: 2px solid #f6f6f6;
+	border-radius: 6px;
+	opacity: 0.4;
+}
+button:hover {
+	opacity: 1;
+}
+button:focus {
+	outline: none;
+}
+
+.exhale {
+	min-width: 110px;
+	height: 110px;
+	border-radius: 0%;
+}
+.inhale {
+	min-width: 336px;
+	height: 336px;
+	border-radius: 100%;
+}
+.focus-symbol {
+	transition: all 4s ease-in-out;
+	transform-origin: center;
+	transform: rotate(45deg);
+	margin: 30px 0;
+	background: linear-gradient(100deg, #e6e6e6, #dedede);
+	box-shadow: 19px 19px 38px rgba(0, 0, 0, 0.3),
+		15px 15px 12px rgba(0, 0, 0, 0.22), -6px -6px 38px rgba(255, 255, 255, 0.2),
+		-2px -2px 40px rgba(255, 255, 255, 0.22),
+		inset -3px -3px 5px rgba(0, 0, 0, 0.23),
+		inset 3px 3px 5px rgba(208, 233, 255, 0.23);
+}
+
+.BPM {
+	margin-bottom: 2em;
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+@media (orientation: landscape) and (max-height: 586px) {
+	.BPM {
+		opacity: 0;
+	}
+
+	.container {
+		flex-direction: row;
+	}
+}
+
+@media (max-height: 586px) {
+	.BPM {
+		opacity: 0;
+	}
+	.container {
+		flex-direction: row;
+	}
+}
+
+@media (min-height: 700px) {
+	.container {
+		padding-top: 2em;
+	}
+}
