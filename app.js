@@ -1,17 +1,23 @@
 const displayTime = document.querySelector(".timer");
 const focusSymbol = document.querySelector(".focus-symbol");
-const controls = document.querySelector(".timer-controls");
+const controls = document.querySelector(".control-wrapper");
 const background = document.querySelector("body");
 const spButton = document.querySelector("#start");
 const displayCompletions = document.querySelector(".completion");
+const timerSwitch = document.querySelector(".timer-switch");
+const dot28 = document.querySelector("#d28");
+const dot90 = document.querySelector("#d90");
 
-let duration = 60 * 28;
+let duration = 60 * 90;
+let pausedDuration = null;
+let completionCount;
 
 const breathIn = new Audio("sounds/in.mp3");
 const breathOut = new Audio("sounds/out.mp3");
 const audio1 = new Audio("sounds/completionL2.mp3");
 const audio2 = new Audio("sounds/completion2.mp3");
-let completionCount;
+let completionSound = audio1;
+
 try {
 	completionCount = localStorage.getItem("completionCount");
 } catch (e) {
@@ -23,8 +29,8 @@ const countCompletion = () => {
 		localStorage.setItem("completionCount", ++completionCount);
 	} catch (e) {
 		console.log(e);
-		displayCompletion();
 	}
+	displayCompletion();
 };
 const displayCompletion = () => {
 	displayCompletions.innerHTML = `
@@ -35,15 +41,13 @@ completionCount && completionCount !== "undefined"
 	? displayCompletion()
 	: (displayCompletions.innerHTML = ``);
 
-let completionSound = audio1;
-
 const app = () => {
-	let timer = duration;
+	let timer;
+	pausedDuration ? (timer = pausedDuration) : (timer = duration);
 
 	let countdown = setInterval(() => {
 		minutes = parseInt(timer / 60, 10);
 		seconds = parseInt(timer % 60, 10);
-
 		minutes = minutes < 10 ? `0${minutes}` : minutes;
 		seconds = seconds < 10 ? `0${seconds}` : seconds;
 
@@ -53,7 +57,7 @@ const app = () => {
 		pauseApp = () => {
 			clearInterval(countdown);
 			clearInterval(animationInterval);
-			return (duration = timer);
+			return (pausedDuration = timer);
 		};
 
 		// when timer finishes
@@ -65,6 +69,7 @@ const app = () => {
 			spButton.innerText = "START";
 			completionSound.play();
 			countCompletion();
+			pausedDuration = null;
 		}
 	}, 1000);
 
@@ -87,6 +92,7 @@ const breathingAnimation = () => {
 	}, 8000);
 };
 
+// Stop start Timer
 controls.addEventListener("click", e => {
 	e.preventDefault();
 	// finished timed animation before starting a new one
@@ -101,6 +107,7 @@ controls.addEventListener("click", e => {
 	}
 });
 
+// changing bg color and completion sound
 focusSymbol.addEventListener("click", e => {
 	if (completionSound === audio1) {
 		completionSound = audio2;
@@ -110,5 +117,20 @@ focusSymbol.addEventListener("click", e => {
 		completionSound = audio1;
 		background.classList.remove("bgH");
 		background.classList.add("bgA");
+	}
+});
+
+// switching between 90 minutes and 60
+timerSwitch.addEventListener("click", e => {
+	if (duration === 5400 && !pausedDuration) {
+		dot90.classList.remove("dot--selected");
+		dot28.classList.add("dot--selected");
+		duration = 1680;
+		displayTime.innerText = `28:00`;
+	} else if (duration === 1680 && !pausedDuration) {
+		dot28.classList.remove("dot--selected");
+		dot90.classList.add("dot--selected");
+		duration = 5400;
+		displayTime.innerText = `90:00`;
 	}
 });

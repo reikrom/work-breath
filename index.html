@@ -10,19 +10,23 @@
 	</head>
 	<body class="bgA">
 		<div class="container">
-			<div class="timer-controls">
-				<h1 class="timer">28:00</h1>
+			<div class="control-wrapper">
+				<div class="timer-switch">
+					<div class="dot-wrapper">
+						<div id="d28" class="dot"></div>
+						<div id="d90" class="dot dot--selected"></div>
+					</div>
+					<h1 class="timer noselect">90:00</h1>
+				</div>
+				<form class="controls">
+					<button id="start">start</button>
+				</form>
 				<div class="completion">
 					<span>Completions: <strong>1</strong></span>
 				</div>
-				<form class="controls">
-					<!-- <button id="restart">restart</button> -->
-					<button id="start">start</button>
-				</form>
 			</div>
-			<div class="focus-symbol exhale"></div>
-			<div class="BPM">
-				3.8 BPM
+			<div class="focus-wrapper">
+				<div class="focus-symbol exhale"></div>
 			</div>
 		</div>
 		<script src="app.js"></script>

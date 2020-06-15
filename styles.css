@@ -3,14 +3,16 @@
 }
 
 body {
-	/* background: linear-gradient(45deg, #3a90d9 0%, #53a9f3 100%); */
-
 	background-repeat: no-repeat;
-	height: 100%;
+	overflow: hidden;
+	height: 100vh;
 	margin: 0;
 	color: #f6f6f6;
 	font-family: monospace;
 	transition: background 4s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .bgA {
@@ -23,20 +25,74 @@ body {
 
 .container {
 	max-width: 600px;
+	max-height: 600px;
+	padding: 16px;
 	height: 100vh;
-	margin: auto;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	overflow: hidden;
-	@media() {
+}
+@media (max-width: 500px) {
+	.container {
+		flex-direction: column;
+		justify-content: center;
 	}
+}
+
+@media (max-height: 480px) and (max-width: 500px) {
+	.focus-wrapper {
+		position: absolute;
+		z-index: -1;
+		opacity: 0.2;
+		transform: scale(0.69) !important;
+	}
+	.container {
+		flex-direction: row;
+	}
+}
+
+.control-wrapper {
+	margin-right: 12px;
+}
+@media (max-width: 490px) {
+	.control-wrapper {
+		margin: 0;
+	}
+}
+
+.timer-switch {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.timer-switch > *:hover,
+.dot:hover {
+	opacity: 1;
+}
+.dot-wrapper {
+	display: flex;
+	justify-content: center;
+}
+.dot {
+	border: 2px solid white;
+	height: 15px;
+	width: 15px;
+	margin: 0 8px;
+	border-radius: 50%;
+	opacity: 0.2;
+}
+
+.dot--selected {
+	background: white;
+	opacity: 0.8;
 }
 
 h1 {
 	margin: 0;
-	font-size: 4rem;
+	font-size: 3rem;
 	opacity: 0.8;
 }
 
@@ -48,6 +104,8 @@ h1 {
 	margin-bottom: 1em;
 	text-align: center;
 	opacity: 0.3;
+	margin: 12px 0;
+	cursor: default;
 }
 
 .controls {
@@ -77,19 +135,32 @@ button:focus {
 
 .exhale {
 	min-width: 110px;
-	height: 110px;
+	min-height: 110px;
+	max-width: 110px;
+	max-height: 110px;
 	border-radius: 0%;
 }
 .inhale {
-	min-width: 336px;
-	height: 336px;
+	min-width: 300px;
+	min-height: 300px;
+	max-width: 300px;
+	max-height: 300px;
 	border-radius: 100%;
 }
+.focus-wrapper {
+	min-width: 300px;
+	min-height: 300px;
+	max-width: 300px;
+	max-height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .focus-symbol {
 	transition: all 4s ease-in-out;
 	transform-origin: center;
 	transform: rotate(45deg);
-	margin: 30px 0;
 	background: linear-gradient(100deg, #e6e6e6, #dedede);
 	box-shadow: 19px 19px 38px rgba(0, 0, 0, 0.3),
 		15px 15px 12px rgba(0, 0, 0, 0.22), -6px -6px 38px rgba(255, 255, 255, 0.2),
@@ -104,27 +175,18 @@ button:focus {
 	pointer-events: none;
 }
 
-@media (orientation: landscape) and (max-height: 586px) {
-	.BPM {
-		opacity: 0;
-	}
-
-	.container {
-		flex-direction: row;
-	}
+.timer,
+.focus-symbol,
+button {
+	cursor: pointer;
 }
 
-@media (max-height: 586px) {
-	.BPM {
-		opacity: 0;
-	}
-	.container {
-		flex-direction: row;
-	}
-}
-
-@media (min-height: 700px) {
-	.container {
-		padding-top: 2em;
-	}
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }
